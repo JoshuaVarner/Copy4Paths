@@ -1,0 +1,23 @@
+Option Explicit
+Dim objFSO
+
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+' Replace the placeholders with your actual source and destination folder paths
+CopyFolderContents "C:\SourceFolder1", "C:\DestFolder1"
+CopyFolderContents "C:\SourceFolder2", "C:\DestFolder2"
+CopyFolderContents "C:\SourceFolder3", "C:\DestFolder3"
+CopyFolderContents "C:\SourceFolder4", "C:\DestFolder4"
+
+Sub CopyFolderContents(srcFolder, destFolder)
+    If objFSO.FolderExists(srcFolder) And objFSO.FolderExists(destFolder) Then
+        objFSO.CopyFolder srcFolder & "\*.*", destFolder, True
+        WScript.Echo "Successfully copied files from " & srcFolder & " to " & destFolder
+    ElseIf Not objFSO.FolderExists(srcFolder) Then
+        WScript.Echo "Source folder not found: " & srcFolder
+    ElseIf Not objFSO.FolderExists(destFolder) Then
+        WScript.Echo "Destination folder not found: " & destFolder
+    End If
+End Sub
+
+Set objFSO = Nothing
